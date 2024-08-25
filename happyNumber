@@ -1,0 +1,41 @@
+
+# Ref : https://www.geeksforgeeks.org/happy-number/
+
+def get_sum_square_digits(n):
+    sum = 0
+    while n :
+        digit = n%10
+        sum += digit*digit
+        n = n // 10
+    return sum
+
+def is_happy_number(n) :
+    s = set()
+    while n not in s:
+        square_of_digits = get_sum_square_digits(n)
+        s.add(n)
+        n = square_of_digits
+        if n == 1:
+            return True
+    return False
+
+def is_happy_number_two_pointer(n) :
+    slow = n
+    fast = n
+
+    while True :
+        slow = get_sum_square_digits(slow)
+        fast = get_sum_square_digits(get_sum_square_digits(fast))
+
+        if slow == 1 :
+            return True
+
+        if slow != fast :
+            continue
+        else :
+            return False
+
+n = 19
+print(n, is_happy_number(n))
+
+print(n, is_happy_number_two_pointer(n))
